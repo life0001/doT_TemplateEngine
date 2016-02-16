@@ -3,6 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" />
+<script src="http://code.angularjs.org/angular-1.0.1.min.js"></script>
 <title>js模板引擎doT 应用</title>
     <style>
         li{list-style:none;float:left; }
@@ -44,29 +45,37 @@
                 {name:'b',age:12},
                 {name:'c',age:30}
             ],
-            sDom='<div class="statics">' +
-                    '<table>' +
+            sDom='<div class="statics" ng-app="test">' +
+                    '<table ng-controller="table">' +
                     '<tbody>' +
                     '<tr>' +
-                    '<td rowspan="3">' +
-                    '<p class="statice_circle">满意度<span class="static_num">95%</span></p>' +
-                    '</td>' +
-                    '<td>已服务出游：</td>' +
-                    '<td><span class="c-orange">3918次</span></td>' +
+                        '<td rowspan="3">' +
+                            '<p class="statice_circle">满意度<span class="static_num">95%</span></p>' +
+                        '</td>' +
+                        '<td>已服务出游：</td>' +
+                        '<td><span class="c-orange">3918次</span></td>' +
                     '</tr>' +
                     '<tr>' +
-                    '<td>已有点评数：</td>' +
-                    '<td><span class="c-orange">1564739条</span></td>' +
+                        '<td>已有点评数：</td>' +
+                        '<td><span class="c-orange">1564739条</span></td>' +
                     '</tr>' +
                     '<tr>' +
-                    '<td>已访问人数：</td>' +
-                    '<td><span class="c-orange">20091794次</span></td>' +
+                        '<td>已访问人数：</td>' +
+                        '<td><span class="c-orange">20091794次</span></td>' +
                     '</tr>' +
+                    '<tr>'  +
+                        '<td>出游人数：<input type="text" placeholder="输入出游人数" ng-model="iPeople"/></td>' +
+                        '<td><span class="c-orange" ng-bind="iPeople"></span></td>' +
+                    '</tr>'  +
                     '</tbody>' +
                     '</table>' +
                     '</div>';
     document.getElementById('o1').innerHTML=doT.template(sContent)(obj);  //把模板sContent里面的内容，作为参数传入doT.template() 方法。参数obj对应模板内的it变量
     document.getElementById('div1').innerHTML=doT.template(sContent)();
-    document.getElementById('div2').innerHTML=doT.template(sContent2)(sDom)
+    document.getElementById('div2').innerHTML=doT.template(sContent2)(sDom);
+    angular.module('test',[])
+            .controller('table',function($scope){
+                $scope.iPeople=0;
+            })
 </script>
 </html>
